@@ -41,16 +41,19 @@ def extract_text_from_pdf(pdf_path):
 
     return text.strip()
 
+
 # Function to get response from Gemini AI
 def analyze_resume(resume_text, job_description=None):
     if not resume_text:
         return {"error": "Resume text is required for analysis."}
-    
-    model = genai.GenerativeModel("gemini-1.5-flash")
-    
+
+    # ✅ Correct indentation here
+    model = genai.GenerativeModel("models/gemini-2.5-pro")
+
     base_prompt = f"""
-    You are an experienced HR with Technical Experience in the field of any one job role from Data Science, Data Analyst, DevOPS, Machine Learning Engineer, Prompt Engineer, AI Engineer, Full Stack Web Development, Big Data Engineering, Marketing Analyst, Human Resource Manager, Software Developer your task is to review the provided resume.
-    Please share your professional evaluation on whether the candidate's profile aligns with the role.ALso mention Skills he already have and siggest some skills to imorve his resume , alos suggest some course he might take to improve the skills.Highlight the strengths and weaknesses.
+    You are an experienced HR with Technical Experience in the field of any one job role from Data Science, Data Analyst, DevOPS, Machine Learning Engineer, Prompt Engineer, AI Engineer, Full Stack Web Development, Big Data Engineering, Marketing Analyst, Human Resource Manager, Software Developer. 
+    Your task is to review the provided resume.
+    Please share your professional evaluation on whether the candidate's profile aligns with the role. Also mention skills they already have, suggest some skills to improve their resume, and recommend some courses to enhance those skills. Highlight the strengths and weaknesses.
 
     Resume:
     {resume_text}
@@ -67,19 +70,18 @@ def analyze_resume(resume_text, job_description=None):
         """
 
     response = model.generate_content(base_prompt)
-
     analysis = response.text.strip()
     return analysis
 
 
 # Streamlit app
-
 st.set_page_config(page_title="Resume Analyzer", layout="wide")
+
 # Title
 st.title("AI Resume Analyzer")
 st.write("Analyze your resume and match it with job descriptions using Google Gemini AI.")
 
-col1 , col2 = st.columns(2)
+col1, col2 = st.columns(2)
 with col1:
     uploaded_file = st.file_uploader("Upload your resume (PDF)", type=["pdf"])
 with col2:
@@ -90,12 +92,13 @@ if uploaded_file is not None:
 else:
     st.warning("Please upload a resume in PDF format.")
 
+st.markdown("<div style='padding-top: 10px;'></div>", unsafe_allow_html=True)
 
-st.markdown("<div style= 'padding-top: 10px;'></div>", unsafe_allow_html=True)
 if uploaded_file:
     # Save uploaded file locally for processing
     with open("uploaded_resume.pdf", "wb") as f:
         f.write(uploaded_file.getbuffer())
+
     # Extract text from PDF
     resume_text = extract_text_from_pdf("uploaded_resume.pdf")
 
@@ -108,7 +111,4 @@ if uploaded_file:
                 st.write(analysis)
             except Exception as e:
                 st.error(f"Analysis failed: {e}")
-
-
-
-
+)
