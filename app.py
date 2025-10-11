@@ -31,7 +31,7 @@ def extract_text_from_pdf(pdf_path):
 
         # If text found, return it
         if text.strip():
-            print("✅ Text extracted using pdfplumber.")
+            print(" Text extracted")
             return text.strip()
 
     except Exception as e:
@@ -59,7 +59,7 @@ def extract_text_from_image(image_file):
         image = Image.open(image_file)
         gray = image.convert("L")
         text = pytesseract.image_to_string(gray)
-        print("✅ Text extracted from image using OCR.")
+        print("Text extracted from image using OCR.")
         return text.strip()
     except Exception as e:
         print(f"❌ Image OCR failed: {e}")
@@ -113,7 +113,7 @@ def analyze_resume(resume_text, job_description=None):
 st.set_page_config(page_title="AI Resume Analyzer", layout="wide")
 
 # Title
-st.title("📄 AI Resume & Image Analyzer")
+st.title(" AI Resume & Image Analyzer")
 st.write("Upload your resume as a **PDF** or **Image (JPG/PNG)** — text or scanned, all supported!")
 
 col1, col2 = st.columns(2)
@@ -130,7 +130,7 @@ with col2:
 
 # Process file
 if uploaded_file is not None:
-    st.success("✅ File uploaded successfully!")
+    st.success(" File uploaded successfully!")
 
     file_ext = uploaded_file.name.lower().split(".")[-1]
 
@@ -146,15 +146,15 @@ if uploaded_file is not None:
 
     # Show preview
     if resume_text:
-        st.text_area("📘 Extracted Resume Text (Preview):", resume_text[:1500], height=250)
+        st.text_area(" Extracted Resume Text (Preview):", resume_text[:1500], height=250)
     else:
-        st.error("❌ Could not extract text from the file. Try uploading a clearer image or PDF.")
+        st.error(" Could not extract text from the file. Try uploading a clearer image or PDF.")
 
     # Analyze
-    if st.button("🔍 Analyze Resume"):
+    if st.button(" Analyze Resume"):
         with st.spinner("Analyzing your resume with Gemini AI..."):
             analysis = analyze_resume(resume_text, job_description)
-            st.success("✅ Analysis complete!")
+            st.success(" Analysis complete!")
             st.write(analysis)
 else:
     st.warning("Please upload a resume file (PDF or image) to begin.")
@@ -169,3 +169,4 @@ st.markdown(
     </p>""",
     unsafe_allow_html=True,
 )
+
