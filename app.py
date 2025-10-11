@@ -109,7 +109,6 @@ if uploaded_file:
             except Exception as e:
                 st.error(f"Analysis failed: {e}")
 
-#Footer
-st.markdown("---")
-st.markdown("""<p style= 'text-align: center;' >Powered by <b>Streamlit</b> and <b>Google Gemini AI</b></a></p>""" 
+
+
 
