@@ -159,14 +159,3 @@ if uploaded_file is not None:
 else:
     st.warning("Please upload a resume file (PDF or image) to begin.")
 
-# Footer
-st.markdown("---")
-st.markdown(
-    """<p style='text-align: center;'>
-    Powered by <b>Streamlit</b> + <b>Google Gemini AI</b> |
-    Developed by <a href="https://www.linkedin.com/in/dutta-sujoy/" target="_blank" 
-    style='text-decoration: none; color: #FFFFFF;'><b>Sujoy Dutta</b></a>
-    </p>""",
-    unsafe_allow_html=True,
-)
-
